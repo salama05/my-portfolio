@@ -1,51 +1,15 @@
 import { Link } from "react-router";
-import React, { useEffect } from "react";
 import { profile } from "../profile";
-import type { Route } from "./+types/home";
+import type { Route } from "./+types/services";
 
 export function meta() {
   return [
-    { title: "Software Developer - Home" },
-    { name: "description", content: "Personal website of a professional software developer - portfolio and services" },
+    { title: `Services - ${profile.name}` },
+    { name: "description", content: "Services I offer in software and application development" },
   ];
 }
 
-export default function Home() {
-  useEffect(() => {
-    // Scroll reveal
-    const revealElements = Array.from(document.querySelectorAll<HTMLElement>(".reveal-init"));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("reveal-show");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-    revealElements.forEach((el) => observer.observe(el));
-
-    // Parallax
-    const parallaxNodes = Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]"));
-    const onScroll = () => {
-      const scrollY = window.scrollY || window.pageYOffset;
-      parallaxNodes.forEach((node) => {
-        const speedAttr = node.getAttribute("data-parallax") || "0.1";
-        const speed = parseFloat(speedAttr);
-        const translateY = scrollY * speed;
-        node.style.transform = `translateY(${translateY}px)`;
-      });
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
+export default function Services() {
   return (
     <div className="min-h-screen">
       {/* Navigation */}
@@ -59,7 +23,7 @@ export default function Home() {
               <Link to="/" className="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium hover:scale-105">Home</Link>
               <Link to="/about" className="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium hover:scale-105">About</Link>
               <Link to="/portfolio" className="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium hover:scale-105">Portfolio</Link>
-              <Link to="/services" className="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium hover:scale-105">Services</Link>
+              <Link to="/services" className="text-indigo-600 font-semibold">Services</Link>
               <Link to="/contact" className="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium hover:scale-105">Contact</Link>
             </div>
           </div>
@@ -68,89 +32,36 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 gradient-primary relative overflow-hidden">
-        {/* Background decoration */}
         <div className="absolute inset-0 opacity-10">
-          <div data-parallax="0.06" className="absolute top-10 left-10 w-20 h-20 bg-white rounded-full animate-pulse-slow"></div>
-          <div data-parallax="0.1" className="absolute top-40 right-20 w-16 h-16 bg-white rounded-full animate-pulse-slow" style={{animationDelay: '1s'}}></div>
-          <div data-parallax="0.08" className="absolute bottom-20 left-1/4 w-12 h-12 bg-white rounded-full animate-pulse-slow" style={{animationDelay: '2s'}}></div>
+          <div className="absolute top-16 left-16 w-32 h-32 bg-white rounded-full animate-pulse-slow"></div>
+          <div className="absolute top-40 right-24 w-20 h-20 bg-white rounded-full animate-pulse-slow" style={{animationDelay: '1s'}}></div>
+          <div className="absolute bottom-24 left-1/3 w-16 h-16 bg-white rounded-full animate-pulse-slow" style={{animationDelay: '2s'}}></div>
         </div>
-        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center">
-            <div className="animate-fadeInUp reveal-init">
-              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                Hello, I'm <span className="text-yellow-300">{profile.name}</span>
-              </h1>
-              <h2 className="text-2xl md:text-3xl text-blue-100 mb-8 font-light">
-                {profile.role}
-              </h2>
-              <p className="text-xl text-blue-100 mb-12 max-w-3xl mx-auto leading-relaxed">
-                {profile.tagline}
-              </p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row justify-center gap-6 animate-slideInRight reveal-init">
-              <Link
-                to="/portfolio"
-                className="btn-primary hover-glow hover-float text-lg px-8 py-4"
-              >
-                View My Work
-              </Link>
-              <Link
-                to="/contact"
-                className="btn-outline hover-float text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-indigo-600"
-              >
-                Contact Me
-              </Link>
-            </div>
+          <div className="text-center animate-fadeInUp">
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">My Services</h1>
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
+              Comprehensive tech solutions for all your needs
+            </p>
           </div>
         </div>
       </section>
 
-
-      {/* Skills Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+      {/* Services Grid */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-fadeInUp reveal-init">
-            <h2 className="text-4xl font-bold gradient-text mb-4">My Technical Skills</h2>
-            <p className="text-gray-600 text-lg">Technologies and tools I work with</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {profile.skills.primary.map((skill, index) => (
-              <div 
-                key={skill} 
-                className="skill-card text-center hover-scale hover-tilt reveal-init"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="text-lg font-semibold text-gray-800">{skill}</div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {profile.services.map((service) => (
+              <div key={service.title} className="glass-card p-8 text-center hover-scale">
+                <div className="text-6xl mb-6">{service.icon}</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+                <div className="text-2xl font-bold gradient-text mb-4">{service.price}</div>
+                <div>
+                  <Link to="/contact" className="btn-primary text-sm py-3 hover-glow">Get Started</Link>
+                </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-
-      {/* CTA Section */}
-      <section className="py-20 gradient-secondary relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div data-parallax="0.07" className="absolute top-10 right-10 w-24 h-24 bg-white rounded-full animate-pulse-slow"></div>
-          <div data-parallax="0.12" className="absolute bottom-10 left-10 w-16 h-16 bg-white rounded-full animate-pulse-slow" style={{animationDelay: '1.5s'}}></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-          <div className="animate-fadeInUp reveal-init">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Got a project in mind?
-            </h2>
-            <p className="text-xl text-pink-100 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Let's collaborate to bring your idea to life with stunning digital solutions
-            </p>
-            <Link
-              to="/contact"
-              className="btn-primary bg-white text-pink-600 hover:bg-gray-100 text-lg px-10 py-4 hover-glow hover-float"
-            >
-              Start Your Project Now
-            </Link>
           </div>
         </div>
       </section>
@@ -190,7 +101,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <h4 className="font-semibold mb-6 text-lg">Contact Info</h4>
+              <h4 className="font-semibold mb-6 text-lg">Contact Me</h4>
               <div className="space-y-3 text-gray-400">
                 <p className="flex items-center">
                   <span className="ml-2">📧</span>

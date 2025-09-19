@@ -1,15 +1,207 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
 
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+html {
+  font-family: "Inter", sans-serif;
+  direction: ltr;
+  scroll-behavior: smooth;
 }
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+body {
+  margin: 0;
+  @apply bg-gradient-to-br from-slate-50 to-blue-50;
+  line-height: 1.6;
+}
+
+/* Modern gradient backgrounds */
+.gradient-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.gradient-success {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass morphism effects */
+.glass-card {
+  backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3);
+}
+
+.glass-nav {
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(209, 213, 219, 0.3);
+}
+
+/* Hover animations */
+.hover-scale {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+/* Skill cards with gradient borders */
+.skill-card {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  border-radius: 12px;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+.skill-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.15);
+}
+
+/* Button styles */
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #667eea;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid #667eea;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Scroll reveal utilities */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Lightweight parallax layers */
+[data-parallax] {
+  will-change: transform;
+  transition: transform 0.2s linear;
+}
+
+/* Enhanced hover utilities */
+.hover-float {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-float:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+.hover-tilt {
+  transition: transform 0.25s ease;
+}
+
+.hover-tilt:hover {
+  transform: perspective(600px) rotateX(3deg) rotateY(-3deg);
 }
