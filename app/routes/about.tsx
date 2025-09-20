@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import React, { useState } from "react";
 import { profile } from "../profile";
 import type { Route } from "./+types/about";
 
@@ -10,6 +11,7 @@ export function meta() {
 }
 
 export default function About() {
+  const [mobileOpen, setMobileOpen] = useState(false);
   return (
     <div className="min-h-screen">
       {/* Navigation */}
@@ -19,15 +21,43 @@ export default function About() {
             <div className="flex items-center">
               <Link to="/" className="text-2xl font-bold gradient-text animate-pulse-slow">{profile.brand}</Link>
             </div>
-            <div className="flex items-center space-x-8">
+            {/* Desktop menu */}
+            <div className="hidden md:flex items-center space-x-8">
               <Link to="/" className="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium hover:scale-105">Home</Link>
               <Link to="/about" className="text-indigo-600 font-semibold">About</Link>
               <Link to="/portfolio" className="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium hover:scale-105">Portfolio</Link>
               <Link to="/services" className="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium hover:scale-105">Services</Link>
               <Link to="/contact" className="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium hover:scale-105">Contact</Link>
             </div>
+            {/* Mobile menu button */}
+            <button
+              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-white/50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              aria-label="Toggle menu"
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                {mobileOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
           </div>
         </div>
+        {/* Mobile dropdown */}
+        {mobileOpen && (
+          <div className="md:hidden bg-white/70 backdrop-blur border-t border-gray-200">
+            <div className="px-4 py-3 space-y-2">
+              <Link to="/" onClick={() => setMobileOpen(false)} className="block text-gray-700 hover:text-indigo-600 font-medium">Home</Link>
+              <Link to="/about" onClick={() => setMobileOpen(false)} className="block text-indigo-600 font-semibold">About</Link>
+              <Link to="/portfolio" onClick={() => setMobileOpen(false)} className="block text-gray-700 hover:text-indigo-600 font-medium">Portfolio</Link>
+              <Link to="/services" onClick={() => setMobileOpen(false)} className="block text-gray-700 hover:text-indigo-600 font-medium">Services</Link>
+              <Link to="/contact" onClick={() => setMobileOpen(false)} className="block text-gray-700 hover:text-indigo-600 font-medium">Contact</Link>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
