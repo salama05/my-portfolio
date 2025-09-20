@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import React, { useEffect, useState } from "react";
+import { Button } from "../components/Button";
 import { profile } from "../profile";
 import type { Route } from "./+types/home";
 
@@ -13,6 +14,8 @@ export function meta() {
 export default function Home() {
   const [mobileOpen, setMobileOpen] = useState(false);
   useEffect(() => {
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // Scroll reveal
     const revealElements = Array.from(document.querySelectorAll<HTMLElement>(".reveal-init"));
     const observer = new IntersectionObserver(
@@ -26,7 +29,12 @@ export default function Home() {
       },
       { threshold: 0.15 }
     );
-    revealElements.forEach((el) => observer.observe(el));
+    if (reduceMotion) {
+      // Show elements immediately without reveal animation
+      revealElements.forEach((el) => el.classList.add('reveal-show'));
+    } else {
+      revealElements.forEach((el) => observer.observe(el));
+    }
 
     // Parallax
     const parallaxNodes = Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]"));
@@ -39,12 +47,16 @@ export default function Home() {
         node.style.transform = `translateY(${translateY}px)`;
       });
     };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+    if (!reduceMotion) {
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+    }
 
     return () => {
       observer.disconnect();
-      window.removeEventListener("scroll", onScroll);
+      if (!reduceMotion) {
+        window.removeEventListener("scroll", onScroll);
+      }
     };
   }, []);
   return (
@@ -119,18 +131,12 @@ export default function Home() {
             </div>
             
             <div className="flex flex-col sm:flex-row justify-center gap-6 animate-slideInRight reveal-init">
-              <Link
-                to="/portfolio"
-                className="btn-primary hover-glow hover-float text-lg px-8 py-4"
-              >
+              <Button to="/portfolio" color="white">
                 View My Work
-              </Link>
-              <Link
-                to="/contact"
-                className="btn-outline hover-float text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-indigo-600"
-              >
+              </Button>
+              <Button to="/contact" color="amber">
                 Contact Me
-              </Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -174,12 +180,12 @@ export default function Home() {
             <p className="text-xl text-pink-100 mb-10 max-w-2xl mx-auto leading-relaxed">
               Let's collaborate to bring your idea to life with stunning digital solutions
             </p>
-            <Link
+            <Button
               to="/contact"
-              className="btn-primary bg-white text-pink-600 hover:bg-gray-100 text-lg px-10 py-4 hover-glow hover-float"
+              color="amber"
             >
               Start Your Project Now
-            </Link>
+            </Button>
           </div>
         </div>
       </section>
