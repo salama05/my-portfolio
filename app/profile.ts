@@ -109,6 +109,26 @@ export const profile = {
       status: "Completed" as ProjectStatus,
       sourceUrl: "https://github.com/salama05/E-Commerce_MERN",
     },
+    {
+      id: 2,
+      title: "Weather Dashboard",
+      description:
+        "A professional, modern weather dashboard built with Next.js 14, TypeScript, and Tailwind CSS.",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "shadcn/ui"],
+      image: "🌦️",
+      status: "Completed" as ProjectStatus,
+      sourceUrl: "https://github.com/salama05/salama-weather-dashboard",
+    },
+    {
+      id: 3,
+      title: "Salama VET - Veterinary Dashboard",
+      description:
+        "A comprehensive management system for veterinary clinics, managing sales, inventory, and treatment records.",
+      technologies: ["React", "Node.js", "Express", "MongoDB", "TypeScript"],
+      image: "🐾",
+      status: "Completed" as ProjectStatus,
+      sourceUrl: "https://github.com/salama05/veterinary-dashboard",
+    },
   ] as ProjectItem[],
   footer: {
     brand: "Software Developer",
