@@ -27,7 +27,7 @@ export const profile = {
   location: "Algeria",
   email: "salama.benkorichi@gmail.com",
   phone: "00213777087207",
-  website: "https://www.your-portfolio.com",
+  website: "https://salamaweb.onrender.com/",
   social: {
     twitter: "https://x.com/SALAMABENKORICH",
     linkedin: "https://www.linkedin.com/in/salamabenkorichi",
