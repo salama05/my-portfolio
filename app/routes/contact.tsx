@@ -84,11 +84,11 @@ export default function Contact() {
 
     /*
      * ─── Email / API Integration Hook ─────────────────────────────────────
-     * Option A: Set VITE_CONTACT_ENDPOINT in .env (e.g., Formspree: https://formspree.io/f/xyz
-     *           or custom serverless handler delivering to contact@salamaweb.me).
+     * Option A: Set VITE_CONTACT_ENDPOINT or VITE_FORMSPREE_ENDPOINT in .env
+     *           (e.g., Formspree: https://formspree.io/f/xyz or custom webhook).
      * Option B: Replace with EmailJS / Resend / Webhook call.
      */
-    const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT;
+    const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT || import.meta.env.VITE_FORMSPREE_ENDPOINT;
 
     try {
       if (endpoint) {
