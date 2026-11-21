@@ -19,9 +19,41 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Fira+Code:wght@400;500&display=swap",
   },
 ];
+
+export function meta() {
+  const title = "Abdessalam Benkorichi | Full-Stack Developer & GenAI Engineer";
+  const description =
+    "Full-Stack Developer & GenAI Engineer specializing in Next.js, TypeScript, LangGraph, MCP, and Agentic RAG systems. Building scalable web apps and production AI agents.";
+  const url = "https://salamaweb.me";
+  const ogImage = `${url}/og-image.png`;
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { name: "author", content: "Abdessalam Benkorichi" },
+    { name: "keywords", content: "Full-Stack Developer, GenAI Engineer, Next.js, TypeScript, LangGraph, MCP, Agentic RAG, React, Node.js, AI, Algeria" },
+    // Open Graph
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: url },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: ogImage },
+    { property: "og:site_name", content: "Salama Web" },
+    { property: "og:locale", content: "en_US" },
+    // Twitter / X Card
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@SALAMABENKORICH" },
+    { name: "twitter:creator", content: "@SALAMABENKORICH" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: ogImage },
+    // Canonical
+    { tagName: "link", rel: "canonical", href: url },
+  ];
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

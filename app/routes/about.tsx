@@ -1,166 +1,289 @@
+import { useEffect } from "react";
 import { Link } from "react-router";
-import React, { useState } from "react";
 import { profile } from "../profile";
-import type { Route } from "./+types/about";
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
+import { Button } from "../components/Button";
 
 export function meta() {
   return [
-    { title: "About Me - Software Developer" },
-    { name: "description", content: "Learn about my experience and professional journey in software development" },
+    { title: `About — ${profile.name} | Full-Stack Developer & GenAI Engineer` },
+    {
+      name: "description",
+      content:
+        "Learn about Abdessalam Benkorichi — Full-Stack Developer & GenAI Engineer with 3+ years of experience building production web platforms, SaaS products, and AI agent systems.",
+    },
+    { property: "og:title", content: `About — ${profile.name}` },
+    {
+      property: "og:description",
+      content:
+        "Learn about Abdessalam Benkorichi — Full-Stack Developer & GenAI Engineer with 3+ years of experience building production web platforms, SaaS products, and AI agent systems.",
+    },
   ];
 }
 
 export default function About() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  useEffect(() => {
+    const reduceMotion =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Scroll reveal observer
+    const revealElements = Array.from(
+      document.querySelectorAll<HTMLElement>(".reveal-init")
+    );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-show");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (reduceMotion) {
+      revealElements.forEach((el) => el.classList.add("reveal-show"));
+    } else {
+      revealElements.forEach((el) => observer.observe(el));
+    }
+
+    // Parallax background floating decor
+    const parallaxNodes = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-parallax]")
+    );
+    const onScroll = () => {
+      const scrollY = window.scrollY || window.pageYOffset;
+      parallaxNodes.forEach((node) => {
+        const speed = parseFloat(node.getAttribute("data-parallax") || "0.1");
+        node.style.transform = `translateY(${scrollY * speed}px)`;
+      });
+    };
+
+    if (!reduceMotion) {
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+    }
+
+    return () => {
+      observer.disconnect();
+      if (!reduceMotion) window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full glass-nav z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link to="/" className="text-2xl font-bold gradient-text animate-pulse-slow">{profile.brand}</Link>
-            </div>
-            {/* Desktop menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium hover:scale-105">Home</Link>
-              <Link to="/about" className="text-indigo-600 font-semibold">About</Link>
-              <Link to="/portfolio" className="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium hover:scale-105">Portfolio</Link>
-              <Link to="/services" className="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium hover:scale-105">Services</Link>
-              <Link to="/contact" className="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium hover:scale-105">Contact</Link>
-            </div>
-            {/* Mobile menu button */}
-            <button
-              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-white/50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              aria-label="Toggle menu"
-              aria-expanded={mobileOpen}
-              onClick={() => setMobileOpen(!mobileOpen)}
-            >
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                {mobileOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
-          </div>
-        </div>
-        {/* Mobile dropdown */}
-        {mobileOpen && (
-          <div className="md:hidden bg-white/70 backdrop-blur border-t border-gray-200">
-            <div className="px-4 py-3 space-y-2">
-              <Link to="/" onClick={() => setMobileOpen(false)} className="block text-gray-700 hover:text-indigo-600 font-medium">Home</Link>
-              <Link to="/about" onClick={() => setMobileOpen(false)} className="block text-indigo-600 font-semibold">About</Link>
-              <Link to="/portfolio" onClick={() => setMobileOpen(false)} className="block text-gray-700 hover:text-indigo-600 font-medium">Portfolio</Link>
-              <Link to="/services" onClick={() => setMobileOpen(false)} className="block text-gray-700 hover:text-indigo-600 font-medium">Services</Link>
-              <Link to="/contact" onClick={() => setMobileOpen(false)} className="block text-gray-700 hover:text-indigo-600 font-medium">Contact</Link>
-            </div>
-          </div>
-        )}
-      </nav>
+      <Navbar />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 gradient-secondary relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-16 left-16 w-28 h-28 bg-white rounded-full animate-pulse-slow"></div>
-          <div className="absolute top-40 right-20 w-20 h-20 bg-white rounded-full animate-pulse-slow" style={{animationDelay: '1s'}}></div>
-          <div className="absolute bottom-20 left-1/3 w-16 h-16 bg-white rounded-full animate-pulse-slow" style={{animationDelay: '2s'}}></div>
+      {/* ─── Hero Section (Unified Purple/Indigo Theme) ─── */}
+      <section
+        className="pt-32 pb-24 gradient-primary relative overflow-hidden"
+        aria-label="About header"
+      >
+        <div className="absolute inset-0 opacity-10" aria-hidden="true">
+          <div
+            data-parallax="0.06"
+            className="absolute top-16 left-16 w-32 h-32 bg-white rounded-full animate-pulse-slow"
+          />
+          <div
+            data-parallax="0.1"
+            className="absolute top-40 right-24 w-20 h-20 bg-white rounded-full animate-pulse-slow"
+            style={{ animationDelay: "1s" }}
+          />
+          <div
+            data-parallax="0.08"
+            className="absolute bottom-24 left-1/3 w-16 h-16 bg-white rounded-full animate-pulse-slow"
+            style={{ animationDelay: "2s" }}
+          />
+          <div
+            data-parallax="0.05"
+            className="absolute top-1/2 right-1/4 w-10 h-10 bg-white rounded-full animate-pulse-slow"
+            style={{ animationDelay: "0.5s" }}
+          />
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center animate-fadeInUp">
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">About Me</h1>
-            <p className="text-xl text-pink-100 max-w-2xl mx-auto leading-relaxed">
-              Passionate software developer with a love for technology and innovation
+          <div className="text-center max-w-3xl mx-auto reveal-init">
+            {/* Header Badge */}
+            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-4 py-1.5 mb-6">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
+              <span className="text-white/95 text-xs font-semibold tracking-wider uppercase">
+                Engineering Background & Philosophy
+              </span>
+            </div>
+
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+              About Me
+            </h1>
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
+              Full-Stack Developer & GenAI Engineer with 3+ years of experience architecting scalable web platforms, SaaS products, and production AI agent systems.
             </p>
           </div>
         </div>
       </section>
 
-      {/* About Content */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="animate-slideInRight">
-              <div className="w-80 h-80 glass-card mx-auto flex items-center justify-center hover-scale">
-                <span className="text-9xl animate-pulse-slow">👨‍💻</span>
+      {/* ─── Core Narrative Section ─────────────────────── */}
+      <section className="py-20 bg-white" aria-labelledby="story-heading">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-12 gap-12 items-start">
+            {/* Left Column: Visual Avatar & Stats Card */}
+            <div className="lg:col-span-5 reveal-init">
+              <div className="glass-card p-8 border border-gray-200/60 shadow-lg text-center relative overflow-hidden">
+                <div className="w-40 h-40 mx-auto mb-6 rounded-3xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 p-1 flex items-center justify-center shadow-xl">
+                  <div className="w-full h-full bg-white rounded-[22px] flex items-center justify-center">
+                    <span className="text-7xl select-none" role="img" aria-label="Engineer working on computer">
+                      👨‍💻
+                    </span>
+                  </div>
+                </div>
+
+                <h2 className="text-2xl font-bold text-gray-900 mb-1">{profile.name}</h2>
+                <p className="text-indigo-600 font-semibold text-sm mb-4">
+                  Full-Stack Developer & GenAI Engineer
+                </p>
+                <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                  Based in {profile.location} · Building full-stack systems, multi-agent workflows, and AI-native applications for global clients.
+                </p>
+
+                {/* Stat Badges */}
+                <div className="grid grid-cols-2 gap-3 pt-6 border-t border-gray-100 text-left">
+                  <div className="p-3 rounded-xl bg-indigo-50/60 border border-indigo-100/80">
+                    <div className="text-2xl font-black text-indigo-700">3+</div>
+                    <div className="text-xs font-semibold text-gray-600 mt-0.5">Years Experience</div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-purple-50/60 border border-purple-100/80">
+                    <div className="text-2xl font-black text-purple-700">6+</div>
+                    <div className="text-xs font-semibold text-gray-600 mt-0.5">Shipped Systems</div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-violet-50/60 border border-violet-100/80">
+                    <div className="text-2xl font-black text-violet-700">100%</div>
+                    <div className="text-xs font-semibold text-gray-600 mt-0.5">Production-Oriented</div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-amber-50/60 border border-amber-100/80">
+                    <div className="text-2xl font-black text-amber-700">MERN+AI</div>
+                    <div className="text-xs font-semibold text-gray-600 mt-0.5">Full Stack Breadth</div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="animate-fadeInUp">
-              <h2 className="text-4xl font-bold gradient-text mb-8">{profile.about.welcomeHeading}</h2>
-              <div className="space-y-6">
-                {profile.about.paragraphs.map((text, idx) => (
-                  <p key={idx} className="text-gray-600 text-lg leading-relaxed">{text}</p>
-                ))}
+
+            {/* Right Column: Narrative Story */}
+            <div className="lg:col-span-7 space-y-6 reveal-init">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-widest text-indigo-600">
+                  The Journey
+                </span>
+                <h2 id="story-heading" className="text-3xl sm:text-4xl font-bold text-gray-900 mt-1 mb-6">
+                  From Full-Stack Foundations to AI Agent Engineering
+                </h2>
+              </div>
+
+              <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+                I am a self-taught software engineer who has spent the last 3+ years mastering the craft of building scalable web applications. My foundation is built on rigorous computer science principles (<span className="font-semibold text-gray-900">Harvard CS50x</span>), deep fluency with the <span className="font-semibold text-gray-900">MERN stack</span> (MongoDB, Express.js, React, Node.js), and modern frontend architecture using <span className="font-semibold text-gray-900">Next.js</span> and <span className="font-semibold text-gray-900">TypeScript</span>.
+              </p>
+
+              <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+                As the software landscape shifted toward AI-native systems, I evolved my skill set to encompass <span className="font-semibold text-gray-900">GenAI and Agentic Engineering</span>. Rather than treating LLMs as mere chat widgets, I build production systems: multi-agent orchestrations with <span className="font-semibold text-gray-900">LangGraph</span>, custom tool servers adhering to the <span className="font-semibold text-gray-900">Model Context Protocol (MCP)</span>, and <span className="font-semibold text-gray-900">Agentic RAG</span> pipelines using vector databases like <span className="font-semibold text-gray-900">Pinecone</span> and <span className="font-semibold text-gray-900">pgvector</span>.
+              </p>
+
+              <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+                I believe what separates good engineers from great engineers is the ability to bridge complex machine learning capabilities with clean UI/UX, robust databases, resilient APIs, and disciplined systems architecture.
+              </p>
+
+              {/* Action Link to Portfolio */}
+              <div className="pt-4 flex flex-wrap items-center gap-4">
+                <Button to="/portfolio" color="primary" variant="filled" size="md">
+                  View Flagship Projects →
+                </Button>
+                <Button to="/contact" variant="outline" size="md">
+                  Get in Touch
+                </Button>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Experience Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+      {/* ─── 3 Core Pillars of Engineering ─────────────── */}
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50" aria-labelledby="pillars-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-fadeInUp">
-            <h2 className="text-4xl font-bold gradient-text mb-4">Professional Experience</h2>
-            <p className="text-gray-600 text-lg">A journey of continuous learning and growth</p>
+          <div className="text-center mb-16 reveal-init">
+            <span className="text-xs font-bold uppercase tracking-widest text-indigo-600">
+              Technical Depth
+            </span>
+            <h2 id="pillars-heading" className="text-3xl sm:text-4xl font-bold gradient-text mt-1 mb-4">
+              Core Engineering Capabilities
+            </h2>
+            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+              How I architect and deliver production-grade applications from inception to deployment.
+            </p>
           </div>
-          <div className="space-y-8">
-            <div className="glass-card p-8 hover-scale">
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Full-Stack Developer</h3>
-              <p className="text-indigo-600 mb-4 font-semibold text-lg">2025 - Present</p>
-              <p className="text-gray-600 leading-relaxed text-lg">Building comprehensive web applications using React, Node.js, and various databases.</p>
-            </div>
-            <div className="glass-card p-8 hover-scale">
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Frontend Developer</h3>
-              <p className="text-indigo-600 mb-4 font-semibold text-lg">2022 - 2025</p>
-              <p className="text-gray-600 leading-relaxed text-lg">Specialized in building interactive and responsive user interfaces.</p>
-            </div>
-            <div className="glass-card p-8 hover-scale">
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Junior Developer</h3>
-              <p className="text-indigo-600 mb-4 font-semibold text-lg">2020 - 2022</p>
-              <p className="text-gray-600 leading-relaxed text-lg">Beginning of the journey learning programming fundamentals and building small projects.</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Skills Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-fadeInUp">
-            <h2 className="text-4xl font-bold gradient-text mb-4">My Technical Skills</h2>
-            <p className="text-gray-600 text-lg">Specialized technologies by field</p>
-          </div>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="glass-card p-8 text-center hover-scale">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">Frontend</h3>
-              <div className="space-y-4">
-                {profile.skills.frontend.map((skill) => (
-                  <div key={skill} className="skill-card">
-                    <span className="text-sm font-medium text-gray-800">{skill}</span>
-                  </div>
+            {/* Pillar 1: Frontend Architecture & UX */}
+            <div className="glass-card p-8 hover-scale flex flex-col justify-between reveal-init">
+              <div>
+                <div className="w-14 h-14 rounded-2xl bg-indigo-100/80 flex items-center justify-center text-3xl mb-6">
+                  🎨
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Frontend Architecture & UX
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                  Crafting accessible, pixel-perfect user interfaces with modern React paradigms. Focused on server-side rendering, bundle performance, responsive layouts, and fluid micro-interactions.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-gray-100 flex flex-wrap gap-1.5">
+                {["React 19", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "shadcn/ui"].map((t) => (
+                  <span key={t} className="px-2 py-0.5 text-xs font-medium rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100">
+                    {t}
+                  </span>
                 ))}
               </div>
             </div>
-            <div className="glass-card p-8 text-center hover-scale">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">Backend</h3>
-              <div className="space-y-4">
-                {profile.skills.backend.map((skill) => (
-                  <div key={skill} className="skill-card">
-                    <span className="text-sm font-medium text-gray-800">{skill}</span>
-                  </div>
+
+            {/* Pillar 2: Backend, Data & SaaS Scalability */}
+            <div className="glass-card p-8 hover-scale flex flex-col justify-between reveal-init">
+              <div>
+                <div className="w-14 h-14 rounded-2xl bg-violet-100/80 flex items-center justify-center text-3xl mb-6">
+                  🗄️
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Backend, Data & SaaS Scale
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                  Building fault-tolerant REST APIs, multi-tenant database models, role-based access control (RBAC), and recurring billing systems. Experienced packaging web apps for desktop with Electron and mobile with Capacitor.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-gray-100 flex flex-wrap gap-1.5">
+                {["Node.js", "Express.js", "Python", "MongoDB", "Convex", "PostgreSQL", "Clerk", "Stripe", "Electron", "Capacitor"].map((t) => (
+                  <span key={t} className="px-2 py-0.5 text-xs font-medium rounded-full bg-violet-50 text-violet-700 border border-violet-100">
+                    {t}
+                  </span>
                 ))}
               </div>
             </div>
-            <div className="glass-card p-8 text-center hover-scale">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">Databases</h3>
-              <div className="space-y-4">
-                {profile.skills.databases.map((skill) => (
-                  <div key={skill} className="skill-card">
-                    <span className="text-sm font-medium text-gray-800">{skill}</span>
-                  </div>
+
+            {/* Pillar 3: AI & Agentic Systems */}
+            <div className="glass-card p-8 hover-scale flex flex-col justify-between reveal-init">
+              <div>
+                <div className="w-14 h-14 rounded-2xl bg-purple-100/80 flex items-center justify-center text-3xl mb-6">
+                  🤖
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  AI & Agentic Systems
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                  Orchestrating stateful multi-agent workflows, tool execution, and contextual retrieval pipelines. Integrating real-time audio and text models with safety, caching, and streaming evaluation.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-gray-100 flex flex-wrap gap-1.5">
+                {["LangGraph", "MCP Tool Servers", "Agentic RAG", "Pinecone", "Gemini 2.0 Flash", "OpenAI APIs", "Ollama"].map((t) => (
+                  <span key={t} className="px-2 py-0.5 text-xs font-medium rounded-full bg-purple-50 text-purple-700 border border-purple-100">
+                    {t}
+                  </span>
                 ))}
               </div>
             </div>
@@ -168,67 +291,190 @@ export default function About() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
-            <div className="md:col-span-2">
-              <h3 className="text-2xl font-bold gradient-text mb-4">{profile.brand}</h3>
-              <p className="text-gray-400 leading-relaxed mb-6">{profile.tagline}</p>
-              <div className="flex space-x-4">
-                <a href={profile.social.twitter} className="text-gray-400 hover:text-white transition-colors p-2 bg-gray-800 rounded-full hover-scale">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                  </svg>
-                </a>
-                <a href={profile.social.linkedin} className="text-gray-400 hover:text-white transition-colors p-2 bg-gray-800 rounded-full hover-scale">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
-                </a>
-                <a href={profile.social.github} className="text-gray-400 hover:text-white transition-colors p-2 bg-gray-800 rounded-full hover-scale">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-6 text-lg">Quick Links</h4>
-              <div className="space-y-3">
-                <Link to="/about" className="block text-gray-400 hover:text-white transition-colors">About Me</Link>
-                <Link to="/portfolio" className="block text-gray-400 hover:text-white transition-colors">Portfolio</Link>
-                <Link to="/services" className="block text-gray-400 hover:text-white transition-colors">Services</Link>
-                <Link to="/contact" className="block text-gray-400 hover:text-white transition-colors">Contact Me</Link>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-6 text-lg">Contact Me</h4>
-              <div className="space-y-3 text-gray-400">
-                <p className="flex items-center">
-                  <span className="ml-2">📧</span>
-                  {profile.email}
-                </p>
-                <p className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 ml-2" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-                  </svg>
-                  {profile.phone}
-                </p>
-                <p className="flex items-center">
-                  <span className="ml-2">📍</span>
-                  {profile.location}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-8 text-center">
-            <p className="text-gray-400">
-              &copy; {new Date().getFullYear()} All rights reserved - {profile.name}
+      {/* ─── Progression Timeline Section ───────────────── */}
+      <section className="py-20 bg-white" aria-labelledby="milestones-heading">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16 reveal-init">
+            <span className="text-xs font-bold uppercase tracking-widest text-indigo-600">
+              Milestones
+            </span>
+            <h2 id="milestones-heading" className="text-3xl sm:text-4xl font-bold gradient-text mt-1 mb-4">
+              Progression & Key Milestones
+            </h2>
+            <p className="text-gray-500 text-lg">
+              A deliberate trajectory from fundamental software engineering to frontier agent architecture.
             </p>
           </div>
+
+          <div className="space-y-8 relative before:absolute before:inset-0 before:left-8 before:w-0.5 before:bg-gradient-to-b before:from-indigo-500 before:via-purple-500 before:to-pink-500 before:hidden sm:before:block">
+            {/* Timeline Item 1 */}
+            <div className="glass-card p-8 hover-scale reveal-init relative sm:ml-16">
+              <div className="hidden sm:flex absolute -left-16 top-8 w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-600 to-purple-600 items-center justify-center text-white text-xs font-bold shadow-md">
+                1
+              </div>
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <h3 className="text-xl font-bold text-gray-900">
+                  CS Foundations & MERN Stack Engineering
+                </h3>
+                <span className="px-3 py-1 text-xs font-bold rounded-full bg-indigo-100 text-indigo-800">
+                  2022 – 2023
+                </span>
+              </div>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                Completed rigorous training through <span className="font-semibold text-gray-900">Harvard CS50x</span>, mastering C, Python, algorithms, memory management, and data structures. Transitioned into full-stack web development with the MERN stack (MongoDB, Express.js, React, Node.js), building relational models, REST APIs, and e-commerce stores.
+              </p>
+              <div className="flex flex-wrap gap-1.5 text-xs">
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">CS50x</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">MERN Architecture</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">REST API Design</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">Authentication & JWT</span>
+              </div>
+            </div>
+
+            {/* Timeline Item 2 */}
+            <div className="glass-card p-8 hover-scale reveal-init relative sm:ml-16">
+              <div className="hidden sm:flex absolute -left-16 top-8 w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 to-violet-600 items-center justify-center text-white text-xs font-bold shadow-md">
+                2
+              </div>
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <h3 className="text-xl font-bold text-gray-900">
+                  Production Full-Stack, SaaS & Enterprise Systems
+                </h3>
+                <span className="px-3 py-1 text-xs font-bold rounded-full bg-purple-100 text-purple-800">
+                  2023 – 2025
+                </span>
+              </div>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                Architected and shipped commercial systems:
+              </p>
+              <ul className="list-disc list-inside text-gray-600 text-sm space-y-1.5 mb-4 leading-relaxed">
+                <li><span className="font-semibold text-gray-900">Salama Public Works ERP:</span> Full-stack ERP for a real public works enterprise with offline-capable mobile deployment via Capacitor, worker attendance, and payroll.</li>
+                <li><span className="font-semibold text-gray-900">Salama VET:</span> Veterinary clinic management system for inventory, billing, and treatment records with desktop packaging via Electron.</li>
+                <li>Transitioned projects to <span className="font-semibold text-gray-900">Next.js</span>, <span className="font-semibold text-gray-900">TypeScript</span>, and reactive backend services like <span className="font-semibold text-gray-900">Convex</span>.</li>
+              </ul>
+              <div className="flex flex-wrap gap-1.5 text-xs">
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">Next.js App Router</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">TypeScript</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">Electron Desktop</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">Capacitor Mobile</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">RBAC & Multi-Tenancy</span>
+              </div>
+            </div>
+
+            {/* Timeline Item 3 */}
+            <div className="glass-card p-8 hover-scale reveal-init relative sm:ml-16">
+              <div className="hidden sm:flex absolute -left-16 top-8 w-8 h-8 rounded-full bg-gradient-to-tr from-pink-600 to-amber-500 items-center justify-center text-white text-xs font-bold shadow-md">
+                3
+              </div>
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <h3 className="text-xl font-bold text-gray-900">
+                  AI Agent Engineering & Frontier Systems
+                </h3>
+                <span className="px-3 py-1 text-xs font-bold rounded-full bg-emerald-100 text-emerald-800">
+                  2025 – Present
+                </span>
+              </div>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                Spearheading production GenAI systems that bridge state-of-the-art LLMs with real software infrastructure:
+              </p>
+              <ul className="list-disc list-inside text-gray-600 text-sm space-y-1.5 mb-4 leading-relaxed">
+                <li><span className="font-semibold text-gray-900">VoiceBook SaaS:</span> Multi-tenant appointment booking with real-time Gemini 2.0 Flash voice conversations, Clerk auth, and Stripe billing.</li>
+                <li><span className="font-semibold text-gray-900">Multi-Agent AI & RAG Suite:</span> Custom Model Context Protocol (MCP) tool servers, multi-step agent orchestration with LangGraph, and Pinecone vector retrieval.</li>
+                <li><span className="font-semibold text-gray-900">Salama-AI-Travel:</span> Personalized AI travel planning and trip itinerary generation.</li>
+              </ul>
+              <div className="flex flex-wrap gap-1.5 text-xs">
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">LangGraph</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">MCP Tool Servers</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">Agentic RAG</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">Gemini 2.0 Flash</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">Pinecone</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </footer>
+      </section>
+
+      {/* ─── Technical Skills Section ───────────────────── */}
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50" aria-labelledby="skills-heading-about">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16 reveal-init">
+            <span className="text-xs font-bold uppercase tracking-widest text-indigo-600">
+              Toolbox
+            </span>
+            <h2 id="skills-heading-about" className="text-3xl sm:text-4xl font-bold gradient-text mt-1 mb-4">
+              Technologies & Methodologies
+            </h2>
+            <p className="text-gray-500 text-lg max-w-xl mx-auto">
+              Categorized technologies powering my day-to-day engineering.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {profile.skills.categories.map((category) => (
+              <div key={category.label} className="skill-category-card">
+                <div className="flex items-center gap-2 mb-5">
+                  <span className="text-xl" aria-hidden="true">{category.icon}</span>
+                  <h3 className="font-bold text-gray-800 text-sm tracking-wide">{category.label}</h3>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {category.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="skill-pill bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Call to Action ─────────────────────────────── */}
+      <section
+        className="py-24 gradient-primary relative overflow-hidden"
+        aria-label="Collaboration call to action"
+      >
+        <div className="absolute inset-0 opacity-10" aria-hidden="true">
+          <div
+            data-parallax="0.07"
+            className="absolute top-10 right-10 w-24 h-24 bg-white rounded-full animate-pulse-slow"
+          />
+          <div
+            data-parallax="0.12"
+            className="absolute bottom-10 left-10 w-16 h-16 bg-white rounded-full animate-pulse-slow"
+            style={{ animationDelay: "1.5s" }}
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+          <div className="reveal-init max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Let's Build Something Exceptional
+            </h2>
+            <p className="text-xl text-blue-100 mb-10 leading-relaxed">
+              Available for full-time engineering roles, high-impact contract builds, and AI-native SaaS product architecture.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Button to="/contact" color="white" size="lg" ariaLabel="Contact Abdessalam">
+                Get in Touch
+              </Button>
+              <Button
+                to="/portfolio"
+                variant="outline"
+                color="outline-white"
+                size="lg"
+                ariaLabel="View portfolio"
+              >
+                View My Work
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
 }

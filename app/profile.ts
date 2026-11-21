@@ -1,4 +1,5 @@
 export type ProjectStatus = "Completed" | "In Progress";
+export type ProjectCategory = "AI & Agents" | "SaaS & Full-Stack";
 
 export interface ProjectItem {
   id: number;
@@ -7,27 +8,42 @@ export interface ProjectItem {
   technologies: string[];
   image: string; // emoji or URL
   status: ProjectStatus;
-  liveUrl?: string; // optional live demo URL
-  sourceUrl?: string; // optional source code repository URL
+  category: ProjectCategory;
+  featured?: boolean;
+  liveUrl?: string;
+  sourceUrl?: string;
 }
 
-export interface ServiceItem {
-  icon: string; // emoji or URL
+export interface ServicePillar {
+  id: string;
+  icon: string;
   title: string;
+  badge: string;
   description: string;
-  price: string; // display text like "$500+"
+  deliverables: string[];
+  technologies: string[];
+}
+
+export interface FeaturedProject {
+  id: number;
+  title: string;
+  impact: string;
+  technologies: string[];
+  emoji: string;
+  liveUrl?: string;
+  sourceUrl?: string;
 }
 
 export const profile = {
   name: "Abdessalam Benkorichi",
-  brand: "My Portfolio",
-  role: "Software Developer",
+  brand: "Salama Web",
+  role: "Full-Stack Developer & GenAI Engineer",
   tagline:
-    "I build modern, high‑quality web apps and websites using the latest technologies.",
+    "I architect and build scalable full-stack web applications and production-grade AI agent systems using Next.js, TypeScript, and modern LLM frameworks.",
   location: "Algeria",
-  email: "salama.benkorichi@gmail.com",
+  email: "contact@salamaweb.me",
   phone: "00213777087207",
-  website: "https://salamaweb.onrender.com/",
+  website: "https://salamaweb.me/",
   social: {
     twitter: "https://x.com/SALAMABENKORICH",
     linkedin: "https://www.linkedin.com/in/salamabenkorichi",
@@ -35,103 +51,352 @@ export const profile = {
   },
   skills: {
     primary: [
-      "React",
-      "TypeScript",
-      "Node.js",
-      "Python",
+      "React 19",
       "Next.js",
-      "Express",
-      "MongoDB",
-      "HTML5",
-      "CSS3",
-      "TailwindCSS",
+      "TypeScript",
+      "Tailwind CSS",
+      "HTML5/CSS3",
       "JavaScript (ES6+)",
+      "Node.js",
+      "Express.js",
+      "Python",
+      "MongoDB",
+      "Convex",
+      "PostgreSQL (pgvector)",
+      "REST APIs",
+      "LangGraph",
+      "RAG & Agentic RAG",
+      "Model Context Protocol (MCP)",
+      "Gemini & OpenAI APIs",
+      "Pinecone",
+      "Ollama",
       "Git / GitHub",
+      "Electron",
+      "Capacitor",
+      "Stripe",
+      "Clerk",
     ],
-    frontend: ["React", "TypeScript", "Tailwind CSS", "Next.js"],
-    backend: ["Node.js", "Express", "JWT", "API Development"],
-    databases: ["MongoDB", "PostgreSQL", "MySQL", "Firebase"],
+    categories: [
+      {
+        label: "Frontend",
+        icon: "🎨",
+        color: "indigo",
+        skills: [
+          "React 19",
+          "Next.js",
+          "TypeScript",
+          "Tailwind CSS",
+          "HTML5/CSS3",
+          "JavaScript (ES6+)",
+        ],
+      },
+      {
+        label: "Backend & Databases",
+        icon: "🗄️",
+        color: "violet",
+        skills: [
+          "Node.js",
+          "Express.js",
+          "Python",
+          "MongoDB",
+          "Convex",
+          "PostgreSQL (pgvector)",
+          "REST APIs",
+        ],
+      },
+      {
+        label: "AI & Agentic Engineering",
+        icon: "🤖",
+        color: "purple",
+        skills: [
+          "LangGraph",
+          "RAG & Agentic RAG",
+          "Model Context Protocol (MCP)",
+          "Gemini & OpenAI APIs",
+          "Pinecone",
+          "Ollama",
+        ],
+      },
+      {
+        label: "Tools & Deployment",
+        icon: "⚙️",
+        color: "fuchsia",
+        skills: ["Git / GitHub", "Electron", "Capacitor", "Stripe", "Clerk"],
+      },
+    ],
+    frontend: [
+      "React 19",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "HTML5/CSS3",
+      "JavaScript (ES6+)",
+    ],
+    backend: [
+      "Node.js",
+      "Express.js",
+      "Python",
+      "REST APIs",
+      "LangGraph",
+      "Agentic RAG",
+    ],
+    databases: [
+      "MongoDB",
+      "Convex",
+      "PostgreSQL (pgvector)",
+      "Pinecone",
+      "Firebase",
+    ],
   },
   about: {
     welcomeHeading: "Welcome!",
     paragraphs: [
-      "I'm a passionate MERN Stack Developer dedicated to building modern, fast, and scalable web applications. I focus on creating practical, user-friendly solutions that combine clean design with efficient performance.",
-      "I continuously learn new technologies, refine my skills, and enjoy sharing knowledge with the developer community. To me, web development transcends writing code—it's about solving real problems, delivering tangible value, and creating experiences that genuinely improve people's lives.",
-      "I believe in the power of collaboration and maintainable code to bring innovative ideas to life.",
+      "I'm a Full-Stack Developer & GenAI Engineer who architects and ships production-grade systems — from scalable web applications to multi-agent AI pipelines. I specialise in Next.js, TypeScript, and modern LLM frameworks including LangGraph, MCP, and Agentic RAG.",
+      "I build real things that run in production: a multi-tenant SaaS voice-booking platform powered by Gemini 2.0, a full-stack ERP for the construction industry with offline-capable mobile support, and custom AI agent systems with tool-calling, retrieval, and orchestration layers.",
+      "I believe clean architecture, maintainable code, and genuine problem-solving are what separate great engineers from the rest. I'm always learning at the frontier of AI-native development.",
     ],
   },
   services: [
     {
+      id: "fullstack-erp",
       icon: "🌐",
-      title: "Website Development",
-      description: "Modern, responsive websites using the latest technologies",
-      price: "Starting from $300",
+      badge: "Core Engineering",
+      title: "Full-Stack Web & ERP Systems",
+      description:
+        "Custom web applications, dashboards, and internal tools/ERPs with role-based access control (RBAC), clean APIs, database design, and optional desktop/mobile wrappers.",
+      deliverables: [
+        "Custom web applications & interactive operational dashboards",
+        "RESTful APIs, relational/document database schemas & scalable data flows",
+        "Role-Based Access Control (RBAC) & secure permission boundaries",
+        "Desktop & offline-capable mobile builds when workflows require them",
+      ],
+      technologies: [
+        "React 19",
+        "Next.js",
+        "TypeScript",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "PostgreSQL",
+        "Tailwind CSS",
+      ],
     },
     {
-      icon: "📱",
-      title: "Web Applications",
-      description: "Interactive web apps with advanced user interfaces",
-      price: "Starting from $600",
+      id: "saas-engineering",
+      icon: "⚡",
+      badge: "Scale & Revenue",
+      title: "SaaS Product Engineering",
+      description:
+        "End-to-end SaaS architecture including multi-tenant workflows, authentication, billing/subscriptions, and responsive UIs designed for real users.",
+      deliverables: [
+        "Multi-tenant workspace architecture & organization isolation",
+        "Authentication flows, user roles & subscription billing integration",
+        "Real-time data updates & responsive interfaces built for active users",
+        "Onboarding flows, core analytics & administrative controls",
+      ],
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "Convex",
+        "Clerk",
+        "Stripe",
+        "Tailwind CSS",
+      ],
     },
     {
-      icon: "🛒",
-      title: "E‑commerce Platforms",
-      description: "End‑to‑end e‑commerce solutions with payment integration",
-      price: "Starting from $900",
+      id: "ai-agents-rag",
+      icon: "🤖",
+      badge: "AI-Native Systems",
+      title: "AI Agents, RAG & Workflow Automation",
+      description:
+        "Custom AI assistants, Retrieval-Augmented Generation (RAG & Agentic RAG), Model Context Protocol (MCP) tool servers, and multi-agent orchestration workflows—including local LLM options where needed.",
+      deliverables: [
+        "Stateful multi-agent workflows & structured task execution pipelines",
+        "Knowledge retrieval systems (RAG & Agentic RAG) with semantic search & grounding",
+        "Custom tool servers (MCP) connecting AI agents to external systems and data",
+        "Flexible cloud or local model deployment tailored to privacy and latency needs",
+      ],
+      technologies: [
+        "LangGraph",
+        "RAG & Agentic RAG",
+        "MCP",
+        "Pinecone",
+        "pgvector",
+        "Ollama",
+        "Gemini & OpenAI APIs",
+        "Python",
+      ],
     },
-    {
-      icon: "⚙️",
-      title: "API Development",
-      description: "Robust and secure application programming interfaces",
-      price: "Starting from $250",
-    },
-    {
-      icon: "🔧",
-      title: "Maintenance & Support",
-      description: "Regular maintenance and ongoing technical support",
-      price: "$50/mo",
-    },
-    {
-      icon: "🔍",
-      title: "Code Review & Refactoring",
-      description: "Improve your code quality with detailed reviews and refactoring suggestions",
-      price: "$20/hr",
-    },
-  ] as ServiceItem[],
+  ] as ServicePillar[],
   projects: [
     {
       id: 1,
-      title: "Full E‑commerce Store",
+      title: "VoiceBook SaaS",
       description:
-        "Comprehensive e‑commerce platform with product and order management",
-      technologies: ["React", "Node.js", "MongoDB", "Express"],
-      image: "🛒",
+        "Multi-tenant AI voice appointment-booking platform powered by Gemini 2.0 Flash, Next.js 16, TypeScript, Tailwind CSS v4, Convex, Clerk, and Stripe.",
+      technologies: [
+        "Next.js 16",
+        "TypeScript",
+        "Gemini 2.0 Flash",
+        "Tailwind CSS v4",
+        "Convex",
+        "Clerk",
+        "Stripe",
+      ],
+      image: "🎙️",
       status: "Completed" as ProjectStatus,
-      sourceUrl: "https://github.com/salama05/E-Commerce_MERN",
+      category: "AI & Agents" as ProjectCategory,
+      featured: true,
     },
     {
       id: 2,
-      title: "Weather Dashboard",
+      title: "Salama Public Works ERP",
       description:
-        "A professional, modern weather dashboard built with Next.js 14, TypeScript, and Tailwind CSS.",
-      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "shadcn/ui"],
-      image: "🌦️",
+        "Full-stack construction & public works ERP system featuring offline-capable mobile support, role-based access control (RBAC), worker attendance/payroll, and supplier tracking (MERN Stack, TypeScript, Capacitor).",
+      technologies: [
+        "MongoDB",
+        "Express.js",
+        "React",
+        "Node.js",
+        "Capacitor",
+        "TypeScript",
+      ],
+      image: "🏗️",
       status: "Completed" as ProjectStatus,
-      sourceUrl: "https://github.com/salama05/salama-weather-dashboard",
+      category: "SaaS & Full-Stack" as ProjectCategory,
+      featured: true,
     },
     {
       id: 3,
-      title: "Salama VET - Veterinary Dashboard",
+      title: "Multi-Agent AI & RAG Suite",
       description:
-        "A comprehensive management system for veterinary clinics, managing sales, inventory, and treatment records.",
-      technologies: ["React", "Node.js", "Express", "MongoDB", "TypeScript"],
+        "Production AI systems featuring custom MCP tool servers, LangGraph agent orchestration, and Agentic RAG with Pinecone — enabling autonomous multi-step reasoning.",
+      technologies: [
+        "LangGraph",
+        "MCP",
+        "Pinecone",
+        "React",
+        "Node.js",
+        "Python",
+        "Ollama",
+      ],
+      image: "🧠",
+      status: "Completed" as ProjectStatus,
+      category: "AI & Agents" as ProjectCategory,
+      featured: true,
+    },
+    {
+      id: 4,
+      title: "Salama-AI-Travel",
+      description:
+        "AI-powered travel planning and booking assistant designed to generate personalized itineraries and streamline trip discovery with modern web architecture.",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "LLM / AI"],
+      image: "✈️",
+      status: "Completed" as ProjectStatus,
+      category: "AI & Agents" as ProjectCategory,
+      featured: true,
+      sourceUrl: "https://github.com/salama05/",
+    },
+    {
+      id: 5,
+      title: "Salama VET – Desktop & Web Management System",
+      description:
+        "Comprehensive veterinary clinic management system for inventory, sales, and medical treatment records built with full-stack web tech and packaged for desktop with Electron.",
+      technologies: [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "MongoDB",
+        "Electron",
+      ],
       image: "🐾",
       status: "Completed" as ProjectStatus,
+      category: "SaaS & Full-Stack" as ProjectCategory,
       sourceUrl: "https://github.com/salama05/veterinary-dashboard",
     },
+    {
+      id: 6,
+      title: "Mswada AI & React 19 AI Apps",
+      description:
+        "Full-stack & frontend web applications including Mswada AI drafting workspace, productivity tools, and interactive dashboards built with React 19, TypeScript, and AI APIs.",
+      technologies: [
+        "React 19",
+        "TypeScript",
+        "Tailwind CSS",
+        "AI APIs",
+      ],
+      image: "✍️",
+      status: "Completed" as ProjectStatus,
+      category: "SaaS & Full-Stack" as ProjectCategory,
+      sourceUrl: "https://github.com/salama05/",
+    },
   ] as ProjectItem[],
+  featuredProjects: [
+    {
+      id: 1,
+      title: "VoiceBook SaaS",
+      impact:
+        "Multi-tenant AI voice appointment-booking platform with real-time Gemini 2.0 Flash conversations, Clerk multi-tenancy, and Stripe billing — built to production scale.",
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "Gemini 2.0 Flash",
+        "Convex",
+        "Clerk",
+        "Stripe",
+      ],
+      emoji: "🎙️",
+      liveUrl: undefined,
+      sourceUrl: undefined,
+    },
+    {
+      id: 2,
+      title: "Salama Public Works ERP",
+      impact:
+        "Full-stack construction & public works ERP with RBAC, payroll tracking, and offline-capable mobile app via Capacitor — deployed for a real Algerian enterprise.",
+      technologies: [
+        "MongoDB",
+        "Express.js",
+        "React",
+        "Node.js",
+        "Capacitor",
+        "TypeScript",
+      ],
+      emoji: "🏗️",
+      liveUrl: undefined,
+      sourceUrl: undefined,
+    },
+    {
+      id: 3,
+      title: "Multi-Agent AI & RAG Suite",
+      impact:
+        "Production AI systems featuring custom MCP tool servers, LangGraph agent orchestration, and Agentic RAG with Pinecone — enabling autonomous multi-step reasoning.",
+      technologies: [
+        "LangGraph",
+        "MCP",
+        "Pinecone",
+        "React",
+        "Node.js",
+        "Python",
+        "Ollama",
+      ],
+      emoji: "🧠",
+      liveUrl: undefined,
+      sourceUrl: undefined,
+    },
+    {
+      id: 4,
+      title: "Salama-AI-Travel",
+      impact:
+        "AI-powered travel planning and booking assistant designed to generate personalized itineraries and streamline trip discovery with modern web architecture.",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "LLM / AI"],
+      emoji: "✈️",
+      liveUrl: undefined,
+      sourceUrl: "https://github.com/salama05/",
+    },
+  ] as FeaturedProject[],
   footer: {
-    brand: "Software Developer",
+    brand: "Salama Web",
   },
 };
 
