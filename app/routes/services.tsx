@@ -41,14 +41,14 @@ const workflowSteps = [
     step: "03",
     title: "Testing & Reliability",
     description:
-      "Rigorous end-to-end validation, edge-case hardening, authentication stress testing, mobile responsiveness checks, and AI prompt/workflow evaluation.",
+      "Rigorous end-to-end validation, edge-case hardening, authentication flow testing, mobile responsiveness checks, and AI prompt/workflow evaluation.",
     icon: "🛡️",
   },
   {
     step: "04",
     title: "Launch & Handover",
     description:
-      "Zero-downtime production deployment, telemetry/monitoring setup, clean technical documentation, code handover, and ongoing support.",
+      "Smooth production deployment with health checks, error monitoring setup, clean technical documentation, code handover, and ongoing support.",
     icon: "🚀",
   },
 ];

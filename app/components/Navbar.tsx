@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
 import { profile } from "../profile";
+import { Logo } from "./Logo";
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -25,13 +26,7 @@ export function Navbar() {
         <div className="flex justify-between h-16">
           {/* Brand */}
           <div className="flex items-center">
-            <Link
-              to="/"
-              className="brand-logo"
-              aria-label="Salama Web — Home"
-            >
-              <span className="brand-logo-text">{profile.brand}</span>
-            </Link>
+            <Logo variant="light" size="md" />
           </div>
 
           {/* Desktop menu */}

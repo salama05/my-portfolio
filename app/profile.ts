@@ -42,7 +42,8 @@ export const profile = {
     "I architect and build scalable full-stack web applications and production-grade AI agent systems using Next.js, TypeScript, and modern LLM frameworks.",
   location: "Algeria",
   email: "contact@salamaweb.me",
-  phone: "00213777087207",
+  whatsapp: "@GenAI_Engineer1",
+  whatsappUrl: "https://wa.me/GenAI_Engineer1",
   website: "https://salamaweb.me/",
   social: {
     twitter: "https://x.com/SALAMABENKORICH",
@@ -153,7 +154,7 @@ export const profile = {
     paragraphs: [
       "I'm a Full-Stack Developer & GenAI Engineer who architects and ships production-grade systems — from scalable web applications to multi-agent AI pipelines. I specialise in Next.js, TypeScript, and modern LLM frameworks including LangGraph, MCP, and Agentic RAG.",
       "I build real things that run in production: a multi-tenant SaaS voice-booking platform powered by Gemini 2.0, a full-stack ERP for the construction industry with offline-capable mobile support, and custom AI agent systems with tool-calling, retrieval, and orchestration layers.",
-      "I believe clean architecture, maintainable code, and genuine problem-solving are what separate great engineers from the rest. I'm always learning at the frontier of AI-native development.",
+      "I believe clean architecture, maintainable code, and genuine problem-solving are what separate great engineers from the rest. I'm always learning at the edge of AI-native development.",
     ],
   },
   services: [
@@ -231,7 +232,7 @@ export const profile = {
   projects: [
     {
       id: 1,
-      title: "VoiceBook SaaS",
+      title: "AI Voice Agent",
       description:
         "Multi-tenant AI voice appointment-booking platform powered by Gemini 2.0 Flash, Next.js 16, TypeScript, Tailwind CSS v4, Convex, Clerk, and Stripe.",
       technologies: [
@@ -247,6 +248,7 @@ export const profile = {
       status: "Completed" as ProjectStatus,
       category: "AI & Agents" as ProjectCategory,
       featured: true,
+      sourceUrl: "https://github.com/salama05/AI-Voice-Agent",
     },
     {
       id: 2,
@@ -265,28 +267,10 @@ export const profile = {
       status: "Completed" as ProjectStatus,
       category: "SaaS & Full-Stack" as ProjectCategory,
       featured: true,
+      liveUrl: "https://salama-erp-mu.vercel.app/",
     },
     {
       id: 3,
-      title: "Multi-Agent AI & RAG Suite",
-      description:
-        "Production AI systems featuring custom MCP tool servers, LangGraph agent orchestration, and Agentic RAG with Pinecone — enabling autonomous multi-step reasoning.",
-      technologies: [
-        "LangGraph",
-        "MCP",
-        "Pinecone",
-        "React",
-        "Node.js",
-        "Python",
-        "Ollama",
-      ],
-      image: "🧠",
-      status: "Completed" as ProjectStatus,
-      category: "AI & Agents" as ProjectCategory,
-      featured: true,
-    },
-    {
-      id: 4,
       title: "Salama-AI-Travel",
       description:
         "AI-powered travel planning and booking assistant designed to generate personalized itineraries and streamline trip discovery with modern web architecture.",
@@ -295,10 +279,10 @@ export const profile = {
       status: "Completed" as ProjectStatus,
       category: "AI & Agents" as ProjectCategory,
       featured: true,
-      sourceUrl: "https://github.com/salama05/",
+      sourceUrl: "https://github.com/salama05/Salama-AI-Travel",
     },
     {
-      id: 5,
+      id: 4,
       title: "Salama VET – Desktop & Web Management System",
       description:
         "Comprehensive veterinary clinic management system for inventory, sales, and medical treatment records built with full-stack web tech and packaged for desktop with Electron.",
@@ -314,27 +298,11 @@ export const profile = {
       category: "SaaS & Full-Stack" as ProjectCategory,
       sourceUrl: "https://github.com/salama05/veterinary-dashboard",
     },
-    {
-      id: 6,
-      title: "Mswada AI & React 19 AI Apps",
-      description:
-        "Full-stack & frontend web applications including Mswada AI drafting workspace, productivity tools, and interactive dashboards built with React 19, TypeScript, and AI APIs.",
-      technologies: [
-        "React 19",
-        "TypeScript",
-        "Tailwind CSS",
-        "AI APIs",
-      ],
-      image: "✍️",
-      status: "Completed" as ProjectStatus,
-      category: "SaaS & Full-Stack" as ProjectCategory,
-      sourceUrl: "https://github.com/salama05/",
-    },
   ] as ProjectItem[],
   featuredProjects: [
     {
       id: 1,
-      title: "VoiceBook SaaS",
+      title: "AI Voice Agent",
       impact:
         "Multi-tenant AI voice appointment-booking platform with real-time Gemini 2.0 Flash conversations, Clerk multi-tenancy, and Stripe billing — built to production scale.",
       technologies: [
@@ -346,8 +314,7 @@ export const profile = {
         "Stripe",
       ],
       emoji: "🎙️",
-      liveUrl: undefined,
-      sourceUrl: undefined,
+      sourceUrl: "https://github.com/salama05/AI-Voice-Agent",
     },
     {
       id: 2,
@@ -363,36 +330,31 @@ export const profile = {
         "TypeScript",
       ],
       emoji: "🏗️",
-      liveUrl: undefined,
-      sourceUrl: undefined,
+      liveUrl: "https://salama-erp-mu.vercel.app/",
     },
     {
       id: 3,
-      title: "Multi-Agent AI & RAG Suite",
-      impact:
-        "Production AI systems featuring custom MCP tool servers, LangGraph agent orchestration, and Agentic RAG with Pinecone — enabling autonomous multi-step reasoning.",
-      technologies: [
-        "LangGraph",
-        "MCP",
-        "Pinecone",
-        "React",
-        "Node.js",
-        "Python",
-        "Ollama",
-      ],
-      emoji: "🧠",
-      liveUrl: undefined,
-      sourceUrl: undefined,
-    },
-    {
-      id: 4,
       title: "Salama-AI-Travel",
       impact:
         "AI-powered travel planning and booking assistant designed to generate personalized itineraries and streamline trip discovery with modern web architecture.",
       technologies: ["Next.js", "TypeScript", "Tailwind CSS", "LLM / AI"],
       emoji: "✈️",
-      liveUrl: undefined,
-      sourceUrl: "https://github.com/salama05/",
+      sourceUrl: "https://github.com/salama05/Salama-AI-Travel",
+    },
+    {
+      id: 4,
+      title: "Salama VET – Desktop & Web Management System",
+      impact:
+        "Comprehensive veterinary clinic management system for inventory, sales, and treatment records with offline-ready desktop support via Electron.",
+      technologies: [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "MongoDB",
+        "Electron",
+      ],
+      emoji: "🐾",
+      sourceUrl: "https://github.com/salama05/veterinary-dashboard",
     },
   ] as FeaturedProject[],
   footer: {

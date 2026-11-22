@@ -144,7 +144,7 @@ export default function About() {
                   Full-Stack Developer & GenAI Engineer
                 </p>
                 <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                  Based in {profile.location} · Building full-stack systems, multi-agent workflows, and AI-native applications for global clients.
+                  Based in {profile.location} · Building full-stack systems, multi-agent workflows, and AI-native applications.
                 </p>
 
                 {/* Stat Badges */}
@@ -158,8 +158,8 @@ export default function About() {
                     <div className="text-xs font-semibold text-gray-600 mt-0.5">Shipped Systems</div>
                   </div>
                   <div className="p-3 rounded-xl bg-violet-50/60 border border-violet-100/80">
-                    <div className="text-2xl font-black text-violet-700">100%</div>
-                    <div className="text-xs font-semibold text-gray-600 mt-0.5">Production-Oriented</div>
+                    <div className="text-2xl font-black text-violet-700">Ship</div>
+                    <div className="text-xs font-semibold text-gray-600 mt-0.5">First, Iterate Fast</div>
                   </div>
                   <div className="p-3 rounded-xl bg-amber-50/60 border border-amber-100/80">
                     <div className="text-2xl font-black text-amber-700">MERN+AI</div>
@@ -186,10 +186,6 @@ export default function About() {
 
               <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
                 As the software landscape shifted toward AI-native systems, I evolved my skill set to encompass <span className="font-semibold text-gray-900">GenAI and Agentic Engineering</span>. Rather than treating LLMs as mere chat widgets, I build production systems: multi-agent orchestrations with <span className="font-semibold text-gray-900">LangGraph</span>, custom tool servers adhering to the <span className="font-semibold text-gray-900">Model Context Protocol (MCP)</span>, and <span className="font-semibold text-gray-900">Agentic RAG</span> pipelines using vector databases like <span className="font-semibold text-gray-900">Pinecone</span> and <span className="font-semibold text-gray-900">pgvector</span>.
-              </p>
-
-              <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-                I believe what separates good engineers from great engineers is the ability to bridge complex machine learning capabilities with clean UI/UX, robust databases, resilient APIs, and disciplined systems architecture.
               </p>
 
               {/* Action Link to Portfolio */}
@@ -302,7 +298,7 @@ export default function About() {
               Progression & Key Milestones
             </h2>
             <p className="text-gray-500 text-lg">
-              A deliberate trajectory from fundamental software engineering to frontier agent architecture.
+              A deliberate trajectory from fundamental software engineering to production AI agent systems.
             </p>
           </div>
 
@@ -368,18 +364,17 @@ export default function About() {
               </div>
               <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                 <h3 className="text-xl font-bold text-gray-900">
-                  AI Agent Engineering & Frontier Systems
+                  AI Agent Engineering & Production GenAI Systems
                 </h3>
                 <span className="px-3 py-1 text-xs font-bold rounded-full bg-emerald-100 text-emerald-800">
-                  2025 – Present
+                  Early 2025
                 </span>
               </div>
               <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                Spearheading production GenAI systems that bridge state-of-the-art LLMs with real software infrastructure:
+                Building production GenAI systems that connect state-of-the-art LLMs with real software infrastructure:
               </p>
               <ul className="list-disc list-inside text-gray-600 text-sm space-y-1.5 mb-4 leading-relaxed">
-                <li><span className="font-semibold text-gray-900">VoiceBook SaaS:</span> Multi-tenant appointment booking with real-time Gemini 2.0 Flash voice conversations, Clerk auth, and Stripe billing.</li>
-                <li><span className="font-semibold text-gray-900">Multi-Agent AI & RAG Suite:</span> Custom Model Context Protocol (MCP) tool servers, multi-step agent orchestration with LangGraph, and Pinecone vector retrieval.</li>
+                <li><span className="font-semibold text-gray-900">AI Voice Agent:</span> Multi-tenant appointment booking with real-time Gemini 2.0 Flash voice conversations, Clerk auth, and Stripe billing.</li>
                 <li><span className="font-semibold text-gray-900">Salama-AI-Travel:</span> Personalized AI travel planning and trip itinerary generation.</li>
               </ul>
               <div className="flex flex-wrap gap-1.5 text-xs">
@@ -390,43 +385,32 @@ export default function About() {
                 <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">Pinecone</span>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ─── Technical Skills Section ───────────────────── */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50" aria-labelledby="skills-heading-about">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 reveal-init">
-            <span className="text-xs font-bold uppercase tracking-widest text-indigo-600">
-              Toolbox
-            </span>
-            <h2 id="skills-heading-about" className="text-3xl sm:text-4xl font-bold gradient-text mt-1 mb-4">
-              Technologies & Methodologies
-            </h2>
-            <p className="text-gray-500 text-lg max-w-xl mx-auto">
-              Categorized technologies powering my day-to-day engineering.
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {profile.skills.categories.map((category) => (
-              <div key={category.label} className="skill-category-card">
-                <div className="flex items-center gap-2 mb-5">
-                  <span className="text-xl" aria-hidden="true">{category.icon}</span>
-                  <h3 className="font-bold text-gray-800 text-sm tracking-wide">{category.label}</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="skill-pill bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
+            {/* Timeline Item 4 — Freelance */}
+            <div className="glass-card p-8 hover-scale reveal-init relative sm:ml-16">
+              <div className="hidden sm:flex absolute -left-16 top-8 w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-500 items-center justify-center text-white text-xs font-bold shadow-md">
+                4
               </div>
-            ))}
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <h3 className="text-xl font-bold text-gray-900">
+                  Freelance — Full-Stack, Mobile, Desktop & AI Engineering
+                </h3>
+                <span className="px-3 py-1 text-xs font-bold rounded-full bg-teal-100 text-teal-800">
+                  Sep 2025 – Present
+                </span>
+              </div>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                Working independently with clients on full-stack web applications, cross-platform mobile and desktop builds, and AI-integrated systems. Projects span custom SaaS tools, internal dashboards, agentic workflows, and RAG-powered assistants.
+              </p>
+              <div className="flex flex-wrap gap-1.5 text-xs">
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">Next.js</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">React Native / Capacitor</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">Electron</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">LangGraph</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">Agentic RAG</span>
+                <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md font-medium">MCP Tool Servers</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>

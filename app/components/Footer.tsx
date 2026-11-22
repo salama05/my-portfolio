@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { profile } from "../profile";
+import { Logo } from "./Logo";
 
 const TwitterIcon = () => (
   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -32,9 +33,9 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-12">
           {/* Brand col */}
           <div className="md:col-span-2">
-            <Link to="/" className="inline-block mb-4" aria-label="Salama Web — Home">
-              <h3 className="text-2xl font-bold gradient-text">{profile.brand}</h3>
-            </Link>
+            <div className="mb-4">
+              <Logo variant="dark" size="lg" />
+            </div>
             <p className="text-gray-400 leading-relaxed mb-6 text-sm max-w-sm">
               {profile.tagline}
             </p>
@@ -90,10 +91,16 @@ export function Footer() {
                 <span aria-hidden="true">📧</span>
                 <span>{profile.email}</span>
               </a>
-              <div className="flex items-center gap-2 text-sm">
+              <a
+                href={profile.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm hover:text-white transition-colors"
+                aria-label={`WhatsApp handle ${profile.whatsapp}`}
+              >
                 <WhatsAppIcon />
-                <span>{profile.phone}</span>
-              </div>
+                <span>{profile.whatsapp}</span>
+              </a>
               <div className="flex items-center gap-2 text-sm">
                 <span aria-hidden="true">📍</span>
                 <span>{profile.location}</span>

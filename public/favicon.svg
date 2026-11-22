@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" fill="none">
+  <defs>
+    <!-- Violet/Indigo Gradient for Brackets -->
+    <linearGradient id="bracket-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1" />
+      <stop offset="50%" stop-color="#8B5CF6" />
+      <stop offset="100%" stop-color="#A855F7" />
+    </linearGradient>
+
+    <!-- Amber / Gold Gradient for Central Neural Node -->
+    <linearGradient id="node-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+
+    <!-- Soft Indigo/Slate Background Tint -->
+    <linearGradient id="badge-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EEF2FF" />
+      <stop offset="100%" stop-color="#F5F3FF" />
+    </linearGradient>
+  </defs>
+
+  <!-- Squircle Container Badge with Comfortable Outer Padding (x=1.5, y=1.5, size=33) -->
+  <rect
+    x="1.5"
+    y="1.5"
+    width="33"
+    height="33"
+    rx="9.5"
+    fill="url(#badge-bg)"
+    stroke="#6366F1"
+    stroke-opacity="0.3"
+    stroke-width="1.5"
+  />
+
+  <!-- Left Code Bracket `<` -->
+  <path
+    d="M 13 11 L 8.5 18 L 13 25"
+    stroke="url(#bracket-grad)"
+    stroke-width="2.6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Right Code Bracket `>` -->
+  <path
+    d="M 23 11 L 27.5 18 L 23 25"
+    stroke="url(#bracket-grad)"
+    stroke-width="2.6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Vertical Connector Line (top ray) -->
+  <line
+    x1="18"
+    y1="11"
+    x2="18"
+    y2="15"
+    stroke="#818CF8"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-dasharray="1 2"
+  />
+
+  <!-- Vertical Connector Line (bottom ray) -->
+  <line
+    x1="18"
+    y1="21"
+    x2="18"
+    y2="25"
+    stroke="#818CF8"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-dasharray="1 2"
+  />
+
+  <!-- Central Yellow/Amber Circle Node -->
+  <circle cx="18" cy="18" r="3.2" fill="url(#node-gold)" />
+  <circle cx="18" cy="18" r="1.2" fill="#FFFFFF" />
+</svg>
