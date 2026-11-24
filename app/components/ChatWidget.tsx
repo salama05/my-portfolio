@@ -4,7 +4,7 @@ import type { FormEvent } from "react";
 type Message = { role: "user" | "assistant"; content: string };
 
 const GREETING =
-  "Hi! I'm Abdessalam's assistant. Ask me about his projects and services, or tell me about your project.\nمرحباً! اسألني عن مشاريع عبد السلام وخدماته، أو أخبرني عن مشروعك.";
+  "Hi! I'm the Salama Web assistant. Ask me about Salama Web's projects and services, or tell me about your project.\nمرحباً! أنا مساعد Salama Web. اسألني عن مشاريع وخدمات Salama Web، أو أخبرني عن مشروعك.";
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);

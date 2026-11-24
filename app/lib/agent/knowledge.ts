@@ -2,7 +2,7 @@ export const TOPICS = ["about", "services", "projects", "process", "contact"] as
 export type Topic = (typeof TOPICS)[number];
 
 export const KNOWLEDGE: Record<Topic, string> = {
-  about: `Abdessalam Benkorichi is a self-taught Full-Stack Developer & GenAI Engineer based in Algeria.
+  about: `Salama Web is a freelance Full-Stack Development and GenAI Engineering service based in Algeria, run by a self-taught developer.
 Background: Harvard CS50x, MERN stack, then Next.js/TypeScript, then AI agent engineering (LangGraph, MCP, Agentic RAG).
 Working as a freelancer since Sep 2025.`,
 
