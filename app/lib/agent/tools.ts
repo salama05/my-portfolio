@@ -17,8 +17,15 @@ export const getPortfolioInfo = tool(
 
 export const saveLead = tool(
   async (lead) => {
-    await deliverLead(lead);
-    return "Lead saved successfully. Tell the visitor that Salama Web will contact them by email.";
+    try {
+      await deliverLead(lead);
+      return "Lead saved successfully. Tell the visitor that Salama Web will contact them by email.";
+    } catch (err) {
+      console.error("deliverLead failed:", err);
+      // Backup so the lead is not lost: it will appear in the server logs.
+      console.error("LEAD NOT SENT:", lead);
+      return "FAILED to send the details. Do not say they were sent. Apologize briefly and ask the visitor to use the Contact page or email contact@salamaweb.me instead.";
+    }
   },
   {
     name: "save_lead",
